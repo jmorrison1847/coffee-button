@@ -2,12 +2,11 @@ import os
 import requests_mock
 import unittest
 
-
 from functions.Slack.main import handle, ButtonClickType
 
 
 class SlackTestCase(unittest.TestCase):
-    """Test that Candidate parsing works correctly"""
+    """Test processing of IoT button states"""
 
     @classmethod
     def setUpClass(self):
@@ -23,10 +22,10 @@ class SlackTestCase(unittest.TestCase):
         handle({'clickType': str(ButtonClickType.Single)}, None)
         self.assertEquals(self.mock.call_count, 1)
 
-    def test_single_click_type(self):
+    def test_double_click_type(self):
         handle({'clickType': str(ButtonClickType.Double)}, None)
         self.assertEquals(self.mock.call_count, 0)
 
-    def test_single_click_type(self):
+    def test_long_click_type(self):
         handle({'clickType': str(ButtonClickType.Long)}, None)
         self.assertEquals(self.mock.call_count, 0)
